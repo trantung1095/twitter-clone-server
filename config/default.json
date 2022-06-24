@@ -1,0 +1,30 @@
+{
+    "mongodb_collections": {
+
+    },
+    "mongodb_settings": {
+        "use_new_url_parser": true,
+        "use_create_index": true
+    },
+    "session": {
+        "name": "sessiondId",
+        "max_age": 1800000
+    },
+    "allowed_origins": {
+
+    },
+    "token_validity": {
+        "password_reset_token_valid_for": 360000
+    },
+    "logging": {
+        "mongodb_collection": "twitter_clone_error_log",
+        "combined_log_file_name": "combined.log",
+        "error_log_file_name": "error.log",
+        "exception_log_file_name": "exception.log"
+    },
+    "frontend_urls": {
+
+    },
+    "aws_settings": {},
+    "sendgrid": {}
+}
