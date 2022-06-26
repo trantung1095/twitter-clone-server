@@ -59,57 +59,6 @@ export default {
     var isValidPassword = (user, password) => {
       return bcrypt.compareSync(password, user.password);
     };
-
-    passport.use(
-      "signup",
-      new LocalStrategy(
-        {
-          passReqToCallback: true,
-        },
-        function (req, username, password, done) {
-          findOrCreateUser = function () {
-            // find a user in db with provided username
-            User.findOne({ username: username }, (err, user) => {
-              if (err) {
-                // in case of any error, return using the done method
-                console.log('Error with signup:' + err);
-                return done(err);
-              }
-
-              // already exists
-              if (user) {
-                console.log('User already exist with username:' + username);
-                logger.verbose("User already exist with username", +username);
-                return done(null, false);
-              } else {
-                let newUser = new User();
-
-                newUser.username = username;
-                newUser.password = createPasswordHash(password);
-                newUser.email = req.params('email')
-                newUser.firstName = req.params('firstName');
-                newUser.lastName = req.params('lastName');
-
-                // save the user
-                newUser.safe(function(err) {
-                    if (err) {
-                        console.log('Error in saving user' + err);
-                        logger.verbose('Error in saving user' + err);
-                        return done(null, newUser);
-                    }
-
-                    console.log('User registration successful');
-                    logger.verbose('User registration successful');
-                    return done(null, newUser);
-                })
-              }
-            });
-          };
-          // delay the execution of findOrCreateUser and execute the method in the next tick of the event loop
-          process.nextTick(findOrCreateUser)
-        }
-      )
-    );
   },
 
   isAuthenticated(req, res, done) {

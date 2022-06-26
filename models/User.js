@@ -1,84 +1,96 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
+const UserSchema = new Schema(
+  {
     firstName: {
-        type: String,
-        trim: true,
-        required: true
+      type: String,
+      trim: true,
+      required: true,
     },
     lastName: {
-        type: String,
-        trim: true,
-        required: true
+      type: String,
+      trim: true,
+      required: true,
     },
     userName: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
     },
     email: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-        validate: value => {
-            return validator.isEmail(value)
-        }
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      validate: (value) => {
+        return validator.isEmail(value)
+      },
     },
     active: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     profilePic: {
-        type: String,
-        default: ''
+      type: String,
+      default: '',
     },
     coverPhoto: {
-        type: String,
+      type: String,
     },
-    likes: [{
+    likes: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Post'
-    }],
-    retweets: [{
+        ref: 'Post',
+      },
+    ],
+    retweets: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Post'
-    }],
-    following: [{
+        ref: 'Post',
+      },
+    ],
+    following: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    followers: [{
+        ref: 'User',
+      },
+    ],
+    followers: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    friends: [{
+        ref: 'User',
+      },
+    ],
+    friends: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+        ref: 'User',
+      },
+    ],
     socketId: {
-        type: String,
-        default: ''
+      type: String,
+      default: '',
     },
     location: {
-        type: Object
+      type: Object,
     },
     education: {
-        type: String,
-        trim: true
+      type: String,
+      trim: true,
     },
-    emailConfirmation: String,
+    emailConfirmationToken: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
-}, { timestamps: true})
-
+  },
+  { timestamps: true },
+)
 
 module.exports = mongoose.model('User', UserSchema)

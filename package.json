@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf build/ && babel ./ --out-dir build/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm install && npm run build && node ./build/bin/www",
+    "devstart": "nodemon --exec babel-node ./bin/www"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "bcrypt": "^5.0.1",
     "brcypt": "^1.0.1",
     "compression": "^1.7.4",
     "config": "^3.3.7",
@@ -34,6 +36,7 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^4.0.0",
     "nodemailer": "^6.7.5",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "rate-limit-redis": "^3.0.1",
@@ -45,6 +48,11 @@
     "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.16",
+    "rimraf": "^3.0.2"
   }
 }
